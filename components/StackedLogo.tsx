@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useScroll } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function StackedLogo({
   animated = false,
@@ -7,6 +7,16 @@ export default function StackedLogo({
   animated?: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollY } = useScroll();
+
+  useEffect(() => {
+    const unsubscribe = scrollY.onChange((latest) => {
+      setIsScrolled(latest > 50);
+    });
+
+    return () => unsubscribe();
+  }, [scrollY]);
 
   if (!animated) {
     return (
@@ -81,7 +91,7 @@ export default function StackedLogo({
         {/* T */}
         <motion.div
           animate={{
-            x: isHovered ? "-83%" : 0,
+            x: isHovered || isScrolled ? "-83%" : 0,
           }}
           transition={{
             duration: 0.5,
@@ -110,8 +120,8 @@ export default function StackedLogo({
         {/* O */}
         <motion.div
           animate={{
-            y: isHovered ? 30 : 55,
-            scale: isHovered ? 0.6 : 0.4,
+            y: isHovered || isScrolled ? 30 : 55,
+            scale: isHovered || isScrolled ? 0.6 : 0.4,
           }}
           transition={{
             duration: 0.5,
@@ -140,7 +150,7 @@ export default function StackedLogo({
         {/* M */}
         <motion.div
           animate={{
-            x: isHovered ? "83%" : 0,
+            x: isHovered || isScrolled ? "83%" : 0,
           }}
           transition={{
             duration: 0.5,
