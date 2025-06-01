@@ -1,5 +1,6 @@
 import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
+import styles from "./StackedLogo.module.css";
 
 export default function StackedLogo({
   animated = false,
@@ -20,47 +21,31 @@ export default function StackedLogo({
 
   if (!animated) {
     return (
-      <div
-        style={{
-          position: "relative",
-          width: 240,
-          height: 240,
-          margin: "0 auto",
-        }}
-      >
+      <div className={styles.logoContainer}>
         <img
           src="/T.svg"
           alt="T"
+          className={styles.letterImage}
           style={{
             position: "absolute",
             top: 0,
             left: 0,
-            width: "100%",
-            height: "100%",
           }}
         />
         <img
           src="/M.svg"
           alt="M"
+          className={styles.letterImage}
           style={{
             position: "absolute",
             top: 0,
             left: 0,
-            width: "100%",
-            height: "100%",
           }}
         />
         <img
           src="/O.svg"
           alt="O"
-          style={{
-            position: "absolute",
-            left: "50%",
-            bottom: "5%",
-            width: "40%",
-            height: "40%",
-            transform: "translateX(-50%)",
-          }}
+          className={styles.oLetter}
         />
       </div>
     );
@@ -70,24 +55,9 @@ export default function StackedLogo({
     <motion.div
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      style={{
-        position: "relative",
-        width: 500,
-        height: 240,
-        margin: "0 auto",
-        cursor: "pointer",
-      }}
+      className={styles.animatedContainer}
     >
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "240px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <div className={styles.letterContainer}>
         {/* T */}
         <motion.div
           animate={{
@@ -97,23 +67,15 @@ export default function StackedLogo({
             duration: 0.5,
             ease: "easeOut",
           }}
+          className={styles.letter}
           style={{
-            position: "absolute",
-            width: 240,
-            height: 240,
-            left: "50%",
-            top: 0,
-            marginLeft: -120,
             zIndex: 2,
           }}
         >
           <img
             src="/T.svg"
             alt="T"
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
+            className={styles.letterImage}
           />
         </motion.div>
 
@@ -127,23 +89,15 @@ export default function StackedLogo({
             duration: 0.5,
             ease: "easeOut",
           }}
+          className={styles.letter}
           style={{
-            position: "absolute",
-            width: 240,
-            height: 240,
-            left: "50%",
-            top: 0,
-            marginLeft: -120,
             zIndex: 3,
           }}
         >
           <img
             src="/O.svg"
             alt="O"
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
+            className={ styles.oLetter}
           />
         </motion.div>
 
@@ -156,23 +110,15 @@ export default function StackedLogo({
             duration: 0.5,
             ease: "easeOut",
           }}
+          className={styles.letter}
           style={{
-            position: "absolute",
-            width: 240,
-            height: 240,
-            left: "50%",
-            top: 0,
-            marginLeft: -120,
             zIndex: 1,
           }}
         >
           <img
             src="/M.svg"
             alt="M"
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
+            className={styles.letterImage}
           />
         </motion.div>
       </div>

@@ -126,7 +126,7 @@ export default function Portfolio() {
             >
               <Button
                 size="lg"
-                className="bg-rose-500 hover:bg-rose-600 text-white"
+                className="bg-red-400 hover:bg-red-600 text-slate-900 font-bold"
                 onClick={() =>
                   document
                     .getElementById("contact")
