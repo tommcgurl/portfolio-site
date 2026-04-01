@@ -60,6 +60,17 @@ const config: Config = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+  			},
+  			brand: {
+  				bg: 'var(--color-bg)',
+  				surface: 'var(--color-surface)',
+  				border: 'var(--color-border)',
+  				'border-strong': 'var(--color-border-strong)',
+  				'text-1': 'var(--color-text-1)',
+  				'text-2': 'var(--color-text-2)',
+  				'text-3': 'var(--color-text-3)',
+  				accent: 'var(--color-accent)',
+  				'accent-2': 'var(--color-accent-2)'
   			}
   		},
   		borderRadius: {
