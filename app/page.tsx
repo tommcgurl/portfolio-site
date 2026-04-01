@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Github,
   Linkedin,
@@ -222,10 +221,19 @@ export default function Portfolio() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-brand-accent mb-4 block">
+              TECHNICAL EXPERTISE
+            </span>
+            <h2
+              className="font-extrabold text-brand-text-1 mb-6"
+              style={{
+                fontSize: "clamp(32px, 5vw, 48px)",
+                letterSpacing: "-0.025em",
+              }}
+            >
               Technical Expertise
             </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <p className="text-xl text-brand-text-2 max-w-3xl mx-auto">
               A diverse toolkit honed over 15 years of software development,
               with a special love for functional programming paradigms.
             </p>
@@ -247,12 +255,9 @@ export default function Portfolio() {
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
               >
-                <Badge
-                  variant="outline"
-                  className="text-lg py-2 px-4 border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-slate-900 transition-all duration-300"
-                >
+                <span className="inline-block text-[#fb923c] text-base py-[7px] px-4 rounded border border-[rgba(249,115,22,0.25)] bg-[rgba(249,115,22,0.08)]">
                   {skill}
-                </Badge>
+                </span>
               </motion.div>
             ))}
           </motion.div>
