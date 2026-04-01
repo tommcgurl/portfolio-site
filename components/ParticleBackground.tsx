@@ -119,16 +119,29 @@ export default function ParticleBackground({
     }
 
     setSize();
-    particles = Array.from({ length: count }, () =>
-      spawnParticle(width, height, true)
-    );
+    if (width > 0 && height > 0) {
+      particles = Array.from({ length: count }, () =>
+        spawnParticle(width, height, true)
+      );
+    } else {
+      particles = [];
+    }
 
     const ro = new ResizeObserver(() => {
+      const prevWidth = width;
       const prevHeight = height;
       setSize();
-      const ratio = prevHeight > 0 ? height / prevHeight : 1;
+      if (particles.length === 0 && width > 0 && height > 0) {
+        particles = Array.from({ length: count }, () =>
+          spawnParticle(width, height, true)
+        );
+        return;
+      }
+      const xRatio = prevWidth > 0 ? width / prevWidth : 1;
+      const yRatio = prevHeight > 0 ? height / prevHeight : 1;
       for (const p of particles) {
-        p.y *= ratio;
+        p.x *= xRatio;
+        p.y *= yRatio;
       }
     });
 
