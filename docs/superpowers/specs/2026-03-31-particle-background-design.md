@@ -15,21 +15,28 @@ Restore the animated particle background to the hero section of the portfolio, u
 
 ### Particle Appearance
 - **Shape:** Square pixels (sharp-edged rectangles, not circles)
-- **Size:** 2–3px per particle, varied randomly at spawn time
-- **Colors:** ~2/3 orange (`#f97316` / `--color-accent`) and ~1/3 pink (`#ec4899` / `--color-accent-2`)
+- **Size:** 2–3px per particle (CSS pixels), varied randomly at spawn time
+- **Colors:** ~2/3 orange (`#f97316` / `--color-accent`) and ~1/3 pink (`#ec4899` / `--color-accent-2`), picked randomly per spawn — not fixed counts
 - **Count:** 30 particles active at any time
 
 ### Animation Behavior
 - **Direction:** Straight upward — zero horizontal drift
-- **Speed:** Random per particle, range 0.4–0.9px per frame (~24–54px/s at 60fps)
-- **Opacity:** Each particle fades in as it rises (0 → ~0.6), then fades back out before it exits the top. Particles reset to the bottom at a new random X position when opacity reaches 0 or Y < 0.
-- **Stagger:** Particles initialize at random Y positions so the screen populates immediately on load rather than rising from the bottom all at once.
+- **Speed:** Random per particle, range 0.4–0.9 CSS px per frame at 60fps. Speed is frame-count-based (not time-based); motion will vary slightly at 120Hz displays — this is acceptable for a decorative effect
+- **Opacity lifecycle:** Each particle linearly fades in (0 → 0.6) as it rises, then linearly fades back out (0.6 → 0). The fade-in and fade-out rates are independent (fade-in slightly faster than fade-out). The **primary reset trigger** is opacity reaching 0 after the fade-out phase; an `y < 0` guard is a safety fallback only
+- **Reset:** On reset, a particle spawns at the bottom (`y = height + a few px`) at a new random X position, with freshly randomized size, speed, and color
+- **Stagger:** On initialization, particles are placed at random Y values within `[0, height]` so the screen populates immediately rather than rising from the bottom in a wave
 
-### Placement
-- Covers the full hero section (`min-h-screen`)
-- Positioned absolutely, behind all hero content (`z-index: 1` for canvas, `z-index: 2` for content)
-- `pointer-events: none` — no interaction interference
-- `overflow: hidden` on the hero section clips particles at the boundary
+### Placement & Layering
+
+The hero section uses three layers, bottom to top:
+
+| Layer | Element | z-index |
+|-------|---------|---------|
+| 1 (bottom) | Canvas particle background | `absolute inset-0`, z-index 0 |
+| 2 | Radial gradient overlay (existing) | `absolute inset-0`, z-index 1 |
+| 3 (top) | Hero content (logo, text, buttons) | `relative`, z-index 10 (matches existing `z-10`) |
+
+`overflow: hidden` on the hero section clips particles at the boundary. `pointer-events: none` on the canvas ensures no interaction interference.
 
 ---
 
@@ -37,34 +44,44 @@ Restore the animated particle background to the hero section of the portfolio, u
 
 ### New Component: `ParticleBackground`
 
-Extract all particle logic into `components/ParticleBackground.tsx`. This keeps `page.tsx` clean and makes the effect independently testable and reusable.
+All particle logic lives in `components/ParticleBackground.tsx`. This keeps `page.tsx` clean and makes the effect independently reusable.
 
 **Interface:**
 ```tsx
 interface ParticleBackgroundProps {
-  count?: number;        // default: 30
+  count?: number;   // default: 30
   className?: string;
 }
 ```
 
 **Internals:**
-- Uses a `useRef<HTMLCanvasElement>` to hold the canvas
-- Uses a `useEffect` to start the animation loop on mount and clean it up on unmount (cancel `requestAnimationFrame`)
-- Canvas is sized to the container via `ResizeObserver` — updates on window resize so it fills the hero section correctly on all viewports
-- All particle state lives in a plain mutable array inside the `useEffect` closure — no React state, no re-renders during animation
+- `useRef<HTMLCanvasElement>` to hold the canvas
+- Canvas is absolutely positioned (`absolute inset-0 w-full h-full`) **inside the component** — consumers do not need to pass sizing classes
+- Canvas backing store is scaled by `window.devicePixelRatio` for sharp rendering on retina displays. The canvas `width`/`height` attributes are set to `cssWidth * dpr` / `cssHeight * dpr`, and `ctx.scale(dpr, dpr)` is called so all drawing uses CSS pixel coordinates
+- A `ResizeObserver` watches the canvas element and re-syncs `width`/`height` + re-scales on resize, then re-scatters particle positions proportionally
+- Animation loop uses `useEffect` with a `requestAnimationFrame` loop; the effect returns a cleanup that cancels the pending frame and disconnects the `ResizeObserver`
+- All particle state is a plain mutable array inside the `useEffect` closure — no React state, no re-renders during animation
 
 **Why canvas over framer-motion divs:**
-The original implementation used 20 framer-motion `<div>` elements. Canvas is more appropriate here: it avoids creating 30 DOM nodes, produces no layout/style recalculations during animation, and handles resize more cleanly.
+The original used 20 framer-motion `<div>` elements. Canvas avoids 30 DOM nodes, produces no layout/style recalculations per frame, and handles resize more cleanly.
 
 ### Integration in `page.tsx`
 
-Add `<ParticleBackground />` as a child of the hero section's wrapper, positioned absolutely behind the content:
-
 ```tsx
 <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  {/* Layer 1 — particles (z-0) */}
   <ParticleBackground />
-  {/* existing gradient overlay */}
-  {/* existing hero content */}
+
+  {/* Layer 2 — gradient overlay (z-1) */}
+  <div
+    className="absolute inset-0 pointer-events-none"
+    style={{ zIndex: 1, background: "radial-gradient(...)" }}
+  />
+
+  {/* Layer 3 — hero content (z-10, existing) */}
+  <div className="container mx-auto px-6 relative z-10">
+    ...
+  </div>
 </section>
 ```
 
@@ -72,19 +89,19 @@ Add `<ParticleBackground />` as a child of the hero section's wrapper, positione
 
 ## Color Values
 
-| Role        | Value      | Token                  |
-|-------------|------------|------------------------|
-| Orange (~⅔) | `#f97316`  | `--color-accent`       |
-| Pink (~⅓)   | `#ec4899`  | `--color-accent-2`     |
+| Role       | Value     | CSS Token          |
+|------------|-----------|--------------------|
+| Orange (~⅔) | `#f97316` | `--color-accent`   |
+| Pink (~⅓)  | `#ec4899` | `--color-accent-2` |
 
-Particle opacity is capped at ~0.6 so the pixels feel atmospheric without competing with the hero text.
+Opacity is capped at 0.6 so particles feel atmospheric without competing with hero text.
 
 ---
 
 ## Scope
 
 - **In scope:** Hero section only (`app/page.tsx`), new `components/ParticleBackground.tsx`
-- **Out of scope:** Other sections, particle interaction (hover/click), mobile-specific disabling
+- **Out of scope:** Other sections, particle interaction (hover/click), `prefers-reduced-motion` support, mobile-only disabling
 
 ---
 
@@ -93,4 +110,4 @@ Particle opacity is capped at ~0.6 so the pixels feel atmospheric without compet
 | File | Change |
 |------|--------|
 | `components/ParticleBackground.tsx` | New file |
-| `app/page.tsx` | Import and render `<ParticleBackground />` inside hero section |
+| `app/page.tsx` | Import and render `<ParticleBackground />` as bottom layer inside hero section |
