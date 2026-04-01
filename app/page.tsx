@@ -82,7 +82,7 @@ export default function Portfolio() {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="mb-8"
+              className="mb-3"
             >
               <StackedLogo animated={true} />
             </motion.div>

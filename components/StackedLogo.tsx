@@ -86,7 +86,7 @@ export default function StackedLogo({
         {/* O */}
         <motion.div
           animate={{
-            y: isHovered || isScrolled ? 30 : 55,
+            y: isHovered || isScrolled ? 14 : 25,
             scale: isHovered || isScrolled ? 0.6 : 0.4,
           }}
           transition={{
