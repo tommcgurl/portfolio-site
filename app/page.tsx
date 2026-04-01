@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,9 +19,6 @@ import StackedLogo from "@/components/StackedLogo";
 
 export default function Portfolio() {
   const [mounted, setMounted] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     setMounted(true);
@@ -66,12 +63,15 @@ export default function Portfolio() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-brand-bg">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <motion.div
-          style={{ y, opacity }}
-          className="absolute inset-0 bg-gradient-to-br from-teal-900/20 to-rose-900/20"
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.12), transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgba(236,72,153,0.08), transparent 60%)",
+          }}
         />
 
         <div className="container mx-auto px-6 relative z-10">
@@ -94,7 +94,11 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-5xl md:text-7xl font-bold text-white mb-6"
+              className="font-extrabold text-brand-text-1 mb-6"
+              style={{
+                fontSize: "clamp(48px, 8vw, 80px)",
+                letterSpacing: "-0.03em",
+              }}
             >
               Tom McGurl
             </motion.h1>
@@ -103,7 +107,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-xl md:text-2xl text-rose-300 mb-4"
+              className="text-xl md:text-2xl text-brand-accent mb-4"
             >
               Director of Engineering at electric.ai
             </motion.p>
@@ -112,7 +116,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto"
+              className="text-lg text-brand-text-2 mb-8 max-w-2xl mx-auto"
             >
               15 years of crafting exceptional software experiences across web,
               mobile, desktop, and data platforms
@@ -124,9 +128,11 @@ export default function Portfolio() {
               transition={{ duration: 0.8, delay: 1 }}
               className="flex flex-wrap justify-center gap-4"
             >
-              <Button
-                size="lg"
-                className="bg-red-400 hover:bg-red-600 text-slate-900 font-bold"
+              <button
+                className="text-white font-bold text-sm py-[13px] px-7 rounded-md cursor-pointer"
+                style={{
+                  background: "linear-gradient(135deg, #f97316, #ec4899)",
+                }}
                 onClick={() =>
                   document
                     .getElementById("contact")
@@ -134,11 +140,9 @@ export default function Portfolio() {
                 }
               >
                 Get In Touch
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-slate-900"
+              </button>
+              <button
+                className="font-bold text-sm py-[13px] px-7 rounded-md text-brand-text-2 border-[1.5px] border-brand-border-strong bg-transparent cursor-pointer"
                 onClick={() =>
                   document
                     .getElementById("about")
@@ -146,32 +150,9 @@ export default function Portfolio() {
                 }
               >
                 Learn More
-              </Button>
+              </button>
             </motion.div>
           </motion.div>
-        </div>
-
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-rose-400/20 rounded-full"
-              initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-              }}
-              animate={{
-                y: [null, -100],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: Math.random() * 2,
-              }}
-            />
-          ))}
         </div>
       </section>
 
