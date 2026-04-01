@@ -157,7 +157,10 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-slate-800/50">
+      <section
+        id="about"
+        className="py-20 bg-[rgba(255,255,255,0.015)] border-y border-brand-border"
+      >
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -166,10 +169,19 @@ export default function Portfolio() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-brand-accent mb-4 block">
+              ABOUT ME
+            </span>
+            <h2
+              className="font-extrabold text-brand-text-1 mb-6"
+              style={{
+                fontSize: "clamp(32px, 5vw, 48px)",
+                letterSpacing: "-0.025em",
+              }}
+            >
               About Me
             </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <p className="text-xl text-brand-text-2 max-w-3xl mx-auto">
               Passionate about functional programming and building scalable
               solutions that make a difference. I lead engineering teams and
               architect systems that power the future of technology.
@@ -185,15 +197,15 @@ export default function Portfolio() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="bg-slate-700/50 border-slate-600 hover:border-rose-400/50 transition-all duration-300 h-full">
-                  <CardContent className="p-6 text-center">
-                    <platform.icon className="w-12 h-12 text-rose-400 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-white mb-2">
-                      {platform.title}
-                    </h3>
-                    <p className="text-slate-300">{platform.description}</p>
-                  </CardContent>
-                </Card>
+                <div className="bg-brand-surface border border-brand-border rounded-xl p-6 text-center h-full transition-all duration-300 hover:border-brand-accent hover:shadow-[0_0_24px_rgba(249,115,22,0.12)]">
+                  <div className="w-11 h-11 bg-[rgba(249,115,22,0.1)] rounded-[10px] flex items-center justify-center mx-auto mb-4">
+                    <platform.icon className="w-5 h-5 text-brand-accent" />
+                  </div>
+                  <h3 className="text-[20px] font-bold text-brand-text-1 mb-2">
+                    {platform.title}
+                  </h3>
+                  <p className="text-brand-text-2">{platform.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
