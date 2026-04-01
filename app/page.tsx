@@ -13,6 +13,7 @@ import {
   Database,
 } from "lucide-react";
 import StackedLogo from "@/components/StackedLogo";
+import ParticleBackground from "@/components/ParticleBackground";
 
 export default function Portfolio() {
   const [mounted, setMounted] = useState(false);
@@ -63,14 +64,20 @@ export default function Portfolio() {
     <div className="min-h-screen bg-brand-bg">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Layer 1 — particle background (z-0) */}
+        <ParticleBackground />
+
+        {/* Layer 2 — radial gradient overlay (z-1) */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
+            zIndex: 1,
             background:
               "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.12), transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgba(236,72,153,0.08), transparent 60%)",
           }}
         />
 
+        {/* Layer 3 — hero content (z-10) */}
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
