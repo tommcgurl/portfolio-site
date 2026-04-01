@@ -360,12 +360,21 @@ export default function Portfolio() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Let's Connect
+            <span className="text-[11px] font-bold uppercase tracking-widest text-brand-accent mb-4 block">
+              LET&apos;S CONNECT
+            </span>
+            <h2
+              className="font-extrabold text-brand-text-1 mb-6"
+              style={{
+                fontSize: "clamp(32px, 5vw, 48px)",
+                letterSpacing: "-0.025em",
+              }}
+            >
+              Let&apos;s Connect
             </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <p className="text-xl text-brand-text-2 max-w-3xl mx-auto">
               Interested in collaborating or discussing software engineering?
-              I'd love to hear from you.
+              I&apos;d love to hear from you.
             </p>
           </motion.div>
 
@@ -380,46 +389,46 @@ export default function Portfolio() {
               href="https://www.linkedin.com/in/thomas-mcgurl-ba767b6b/"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex flex-col items-center p-6 bg-slate-700/50 rounded-lg border border-slate-600 hover:border-blue-400/50 transition-all duration-300"
+              className="flex flex-col items-center py-7 px-10 bg-brand-surface rounded-xl border border-brand-border transition-all duration-300 hover:border-brand-accent hover:shadow-[0_0_24px_rgba(249,115,22,0.12)]"
             >
-              <Linkedin className="w-8 h-8 text-blue-400 mb-2" />
-              <span className="text-white font-medium">LinkedIn</span>
+              <Linkedin className="w-7 h-7 text-brand-accent mb-2" />
+              <span className="text-brand-text-1 font-medium">LinkedIn</span>
             </motion.a>
 
             <motion.a
               href="https://github.com/tommcgurl"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex flex-col items-center p-6 bg-slate-700/50 rounded-lg border border-slate-600 hover:border-teal-400/50 transition-all duration-300"
+              className="flex flex-col items-center py-7 px-10 bg-brand-surface rounded-xl border border-brand-border transition-all duration-300 hover:border-brand-accent hover:shadow-[0_0_24px_rgba(249,115,22,0.12)]"
             >
-              <Github className="w-8 h-8 text-teal-400 mb-2" />
-              <span className="text-white font-medium">GitHub</span>
+              <Github className="w-7 h-7 text-brand-accent mb-2" />
+              <span className="text-brand-text-1 font-medium">GitHub</span>
             </motion.a>
 
             <motion.a
               href="https://www.youtube.com/tommcgurl"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex flex-col items-center p-6 bg-slate-700/50 rounded-lg border border-slate-600 hover:border-rose-400/50 transition-all duration-300"
+              className="flex flex-col items-center py-7 px-10 bg-brand-surface rounded-xl border border-brand-border transition-all duration-300 hover:border-brand-accent hover:shadow-[0_0_24px_rgba(249,115,22,0.12)]"
             >
-              <Youtube className="w-8 h-8 text-rose-400 mb-2" />
-              <span className="text-white font-medium">YouTube</span>
+              <Youtube className="w-7 h-7 text-brand-accent mb-2" />
+              <span className="text-brand-text-1 font-medium">YouTube</span>
             </motion.a>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-slate-900 border-t border-slate-700">
+      <footer className="py-8 border-t border-brand-border">
         <div className="container mx-auto px-6 text-center">
-          <p className="text-slate-400">
-            © 2025 Tom McGurl. Crafted with passion for functional programming
+          <p className="text-brand-text-3 text-[13px]">
+            © 2026 Tom McGurl. Crafted with passion for functional programming
             and clean code.
           </p>
         </div>
