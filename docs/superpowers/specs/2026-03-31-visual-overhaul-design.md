@@ -132,7 +132,8 @@ Letter-spacing: `-0.03em` on hero, `-0.025em` on section titles.
 
 ### All Other Sections
 - Each section has a small all-caps orange label above the main heading (e.g. `ABOUT ME`, `TECHNICAL EXPERTISE`)
-- Alternating section backgrounds: plain `#0e0e16` and `rgba(255,255,255,0.015)` with `1px solid #252530` top/bottom borders
+- Section stripe order (after hero): About = tinted, Skills = plain, Featured Work = tinted, Contact = plain, Footer = plain with top border only
+- Tinted sections use `rgba(255,255,255,0.015)` background with `1px solid #252530` top and bottom borders; plain sections use `#0e0e16` with no border
 - Section titles use the new heading style; body copy uses `#94a3b8`
 
 ---
