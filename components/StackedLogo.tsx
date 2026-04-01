@@ -21,7 +21,10 @@ export default function StackedLogo({
 
   if (!animated) {
     return (
-      <div className={styles.logoContainer}>
+      <div
+        className={styles.logoContainer}
+        style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.55))" }}
+      >
         <img
           src="/T.svg"
           alt="T"
@@ -56,6 +59,7 @@ export default function StackedLogo({
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       className={styles.animatedContainer}
+      style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.55))" }}
     >
       <div className={styles.letterContainer}>
         {/* T */}
