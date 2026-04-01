@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Github,
   Linkedin,
@@ -265,7 +263,7 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 bg-slate-800/50">
+      <section className="py-20 bg-[rgba(255,255,255,0.015)] border-y border-brand-border">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -274,10 +272,19 @@ export default function Portfolio() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-brand-accent mb-4 block">
+              FEATURED WORK
+            </span>
+            <h2
+              className="font-extrabold text-brand-text-1 mb-6"
+              style={{
+                fontSize: "clamp(32px, 5vw, 48px)",
+                letterSpacing: "-0.025em",
+              }}
+            >
               Featured Work
             </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <p className="text-xl text-brand-text-2 max-w-3xl mx-auto">
               Explore my software development journey through educational
               content and open-source contributions.
             </p>
@@ -290,27 +297,26 @@ export default function Portfolio() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <Card className="bg-slate-700/50 border-slate-600 hover:border-rose-400/50 transition-all duration-300 h-full">
-                <CardContent className="p-8">
-                  <Youtube className="w-12 h-12 text-rose-400 mb-4" />
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    Software Development Videos
-                  </h3>
-                  <p className="text-slate-300 mb-6">
-                    Educational content covering modern development practices,
-                    functional programming concepts, and industry insights.
-                  </p>
-                  <Button
-                    variant="outline"
-                    className="border-rose-400 text-rose-400 hover:bg-rose-400 hover:text-white"
-                    onClick={() =>
-                      window.open("https://www.youtube.com/tommcgurl", "_blank")
-                    }
-                  >
-                    Watch Videos <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
+              <div className="bg-brand-surface border border-brand-border rounded-xl p-8 h-full transition-all duration-300 hover:border-brand-accent hover:shadow-[0_0_32px_rgba(249,115,22,0.10)]">
+                <div className="w-[52px] h-[52px] bg-[rgba(249,115,22,0.1)] rounded-[10px] flex items-center justify-center mb-4">
+                  <Youtube className="w-6 h-6 text-brand-accent" />
+                </div>
+                <h3 className="text-[20px] font-bold text-brand-text-1 mb-4">
+                  Software Development Videos
+                </h3>
+                <p className="text-brand-text-2 mb-6">
+                  Educational content covering modern development practices,
+                  functional programming concepts, and industry insights.
+                </p>
+                <button
+                  className="font-bold text-sm py-[13px] px-7 rounded-md text-brand-accent border-[1.5px] border-[rgba(249,115,22,0.5)] bg-transparent inline-flex items-center cursor-pointer"
+                  onClick={() =>
+                    window.open("https://www.youtube.com/tommcgurl", "_blank")
+                  }
+                >
+                  Watch Videos <ExternalLink className="w-4 h-4 ml-2" />
+                </button>
+              </div>
             </motion.div>
 
             <motion.div
@@ -319,27 +325,26 @@ export default function Portfolio() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <Card className="bg-slate-700/50 border-slate-600 hover:border-teal-400/50 transition-all duration-300 h-full">
-                <CardContent className="p-8">
-                  <Github className="w-12 h-12 text-teal-400 mb-4" />
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    Open Source Projects
-                  </h3>
-                  <p className="text-slate-300 mb-6">
-                    Explore my contributions to the developer community through
-                    open-source projects and code repositories.
-                  </p>
-                  <Button
-                    variant="outline"
-                    className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-slate-900"
-                    onClick={() =>
-                      window.open("https://github.com/tommcgurl", "_blank")
-                    }
-                  >
-                    View Code <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
+              <div className="bg-brand-surface border border-brand-border rounded-xl p-8 h-full transition-all duration-300 hover:border-brand-accent hover:shadow-[0_0_32px_rgba(249,115,22,0.10)]">
+                <div className="w-[52px] h-[52px] bg-[rgba(249,115,22,0.1)] rounded-[10px] flex items-center justify-center mb-4">
+                  <Github className="w-6 h-6 text-brand-accent" />
+                </div>
+                <h3 className="text-[20px] font-bold text-brand-text-1 mb-4">
+                  Open Source Projects
+                </h3>
+                <p className="text-brand-text-2 mb-6">
+                  Explore my contributions to the developer community through
+                  open-source projects and code repositories.
+                </p>
+                <button
+                  className="font-bold text-sm py-[13px] px-7 rounded-md text-brand-accent border-[1.5px] border-[rgba(249,115,22,0.5)] bg-transparent inline-flex items-center cursor-pointer"
+                  onClick={() =>
+                    window.open("https://github.com/tommcgurl", "_blank")
+                  }
+                >
+                  View Code <ExternalLink className="w-4 h-4 ml-2" />
+                </button>
+              </div>
             </motion.div>
           </div>
         </div>
